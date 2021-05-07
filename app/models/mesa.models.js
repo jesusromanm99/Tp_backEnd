@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         planta:{
             type: Sequelize.Sequelize.INTEGER,
             defaultValue:1
-        },
+        }
     });
 
 

@@ -13,6 +13,14 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
     //var db = require("../models");
-    //Restaurant.hasMany(db.Mesa)
+    /*
+    var db = require("./mesa.models")
+    console.log(db.Mesa);
+    Restaurant.hasMany(db.Mesa)
+    */
     return Restaurant;
+
+
+
 };
+

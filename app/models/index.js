@@ -19,9 +19,18 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.Ventas = require("./venta.model.js")(sequelize, Sequelize);
 
-db.Restaurant = require("./restaurant.model.js")(sequelize, Sequelize);
+db.Reserva = require("./reserva.models.js")(sequelize, Sequelize);
+
 db.Mesa = require("./mesa.models.js")(sequelize, Sequelize);
+db.Mesa.hasMany(db.Reserva,{as: 'reserva', foreignKey: 'id_mesa'});
+
+db.Restaurant = require("./restaurant.model.js")(sequelize, Sequelize);
+db.Restaurant.hasMany(db.Mesa, {as: 'mesa', foreignKey: 'id_restaurante'});
+db.Restaurant.hasMany(db.Reserva,{as: 'reserva', foreignKey: 'id_restaurante'});
 
 db.Cliente = require("./cliente.models.js")(sequelize, Sequelize);
-db.Reserva = require("./reserva.models.js")(sequelize, Sequelize);
+db.Cliente.hasMany(db.Reserva,{as: 'reserva', foreignKey: 'id_cliente'});
+
+
+
 module.exports = db;
