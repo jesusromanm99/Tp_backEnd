@@ -18,4 +18,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.Ventas = require("./venta.model.js")(sequelize, Sequelize);
+
+db.Restaurant = require("./restaurant.model.js")(sequelize, Sequelize);
+db.Mesa = require("./mesa.models.js")(sequelize, Sequelize);
+
+db.Cliente = require("./cliente.models.js")(sequelize, Sequelize);
+db.Reserva = require("./reserva.models.js")(sequelize, Sequelize);
 module.exports = db;
