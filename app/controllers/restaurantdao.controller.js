@@ -21,14 +21,22 @@ exports.create = async (req, res) => {
 exports.findOne = async(req, res) =>{
     const {id} = req.params;
     try {
-        const data  = await Restaurant.findByPk(id);
-        res.send(data);
+        const data = await Restaurant.findByPk(id);
+        if(data){
+            res.send(data);
+        }else{
+            res.status(404).send({
+                message: "No se encontro el restaurant " + id
+            });
+        }
+        
     } catch (error) {
         res.status(500).send({
             message: "Error al obtener restaurant con id=" + id
         });
     }
 }
+
 exports.update = async(req, res) => {
     //Validar el request
     if(!req.body.nombre || !req.body.id){
