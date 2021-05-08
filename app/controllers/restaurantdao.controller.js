@@ -47,10 +47,16 @@ exports.update = async(req, res) => {
     const {id, nombre, direccion} = req.body;
     try {
         const restaurant = await Restaurant.findByPk(id);
-        restaurant.nombre = nombre;
-        restaurant.direccion = direccion;
-        const data = await restaurant.save();
-        res.send(data);
+        if(!restaurant){
+            res.status(404).send({
+                message: "No se encontro el restaurant " + id
+            });
+        }else{
+            restaurant.nombre = nombre;
+            restaurant.direccion = direccion;
+            const data = await restaurant.save();
+            res.send(data);
+        }
     } catch (error) {
         res.status(500).send({
             message: error.message || "Ha ocurrido un error al actualizar un restaurant."

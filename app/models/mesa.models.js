@@ -16,9 +16,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         planta:{
-            type: Sequelize.Sequelize.INTEGER,
+            type: Sequelize.INTEGER,
             defaultValue:1
-        }
+        },
+        capacidad: {
+            type: Sequelize.INTEGER
+        },
     });
     return Mesa
 }
