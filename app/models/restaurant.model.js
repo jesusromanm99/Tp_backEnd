@@ -12,15 +12,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
-    //var db = require("../models");
-    /*
-    var db = require("./mesa.models")
-    console.log(db.Mesa);
-    Restaurant.hasMany(db.Mesa)
-    */
     return Restaurant;
-
-
-
 };
 
