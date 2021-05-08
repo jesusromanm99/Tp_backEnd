@@ -18,3 +18,14 @@ exports.create = async (req, res) => {
         });
     }
 }
+exports.findOne = async(req, res) =>{
+    const {id} = req.params;
+    try {
+        const data  = await Restaurant.findByPk(id);
+        res.send(data);
+    } catch (error) {
+        res.status(500).send({
+            message: "Error al obtener venta con id=" + id
+        });
+    }
+}
