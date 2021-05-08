@@ -6,7 +6,12 @@ exports.create = async (req, res) => {
     if(!req.body.nombre){
         res.status(400).send({
             message: "Debe enviar el nombre de la mesa"
-        })
+        });
+    }
+    if(!req.body.id_restaurante){
+        res.status(400).send({
+            message: "Debe enviar el id del restaurante"
+        });
     }
     const mesa = req.body;
     try {
@@ -44,13 +49,14 @@ exports.update = async(req, res) => {
             message: "Debe enviar el nombre y id de la mesa"
         })
     }
-    const {id, nombre, posicion_x, posicion_y, planta} = req.body;
+    const {id, nombre, posicion_x, posicion_y, planta, id_restaurante} = req.body;
     try {
         const mesa = await Mesa.findByPk(id);
         mesa.nombre = nombre;
         mesa.posicion_x = posicion_x;
         mesa.posicion_y = posicion_y;
         mesa.planta = planta;
+        mesa.id_restaurante = id_restaurante;
         const data = await mesa.save();
         res.send(data);
     } catch (error) {
