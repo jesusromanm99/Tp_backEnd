@@ -67,8 +67,14 @@ exports.delete = async(req, res) =>{
     const {id} = req.params;
     try {
         const restaurant  = await Restaurant.findByPk(id);
-        const data = await restaurant.destroy();
-        res.send(data);
+        if(!restaurant){
+            res.status(404).send({
+                message: "No se encontro el restaurant " + id
+            });
+        }else{
+            const data = await restaurant.destroy();
+            res.send(data);
+        }
     } catch (error) {
         res.status(500).send({
             message: "Error al eliminar restaurant con id=" + id
