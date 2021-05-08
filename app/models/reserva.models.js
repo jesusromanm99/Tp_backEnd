@@ -1,6 +1,5 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const db = require("../models");
     const Reserva = sequelize.define("reserva", {
         id: {
             type:Sequelize.BIGINT,

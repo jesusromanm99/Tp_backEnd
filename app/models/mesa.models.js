@@ -1,6 +1,5 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const db = require("../models");
     var Mesa = sequelize.define("mesa", {
         id: {
             type:Sequelize.BIGINT,
@@ -21,7 +20,5 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue:1
         }
     });
-
-
     return Mesa
 }
