@@ -4,6 +4,8 @@ module.exports = app =>{
     
     router.get("/:id", restaurantDao.findOne);
     router.post('/', restaurantDao.create);
-
+    router.put('/', restaurantDao.update);
+    router.delete('/:id', restaurantDao.delete);
+    
     app.use('/api/restaurant', router);
 }
