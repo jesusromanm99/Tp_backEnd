@@ -9,8 +9,11 @@ module.exports = (sequelize, Sequelize) => {
         fecha: {
             type: Sequelize.DATE
         },
-        hora:{
-            type:Sequelize.STRING
+        hora_inicial:{
+            type:Sequelize.INTEGER
+        },
+        hora_final:{
+            type:Sequelize.INTEGER
         },
     });
     return Reserva;
