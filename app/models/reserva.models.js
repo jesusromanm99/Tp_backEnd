@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         hora_final:{
             type:Sequelize.INTEGER
         },
+        cantidad_solicitada:{
+            type:Sequelize.INTEGER
+        }
     });
     return Reserva;
 };

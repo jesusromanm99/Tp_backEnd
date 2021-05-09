@@ -31,6 +31,7 @@ require("./app/routes/venta.routes")(app);
 require('./app/routes/restaurant.routes')(app);
 require('./app/routes/mesa.routes')(app);
 require('./app/routes/cliente.routes')(app);
+require('./app/routes/reserva.routes')(app);
 
 app.listen(PORT, () => { //la aplicacion escucha en un puesto espcifico
     console.log('Servidor corriendo en puerto 9090.');
