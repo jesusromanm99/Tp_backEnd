@@ -30,6 +30,7 @@ const PORT = process.env.PORT || 9090; // Puerto del entorno o uno por default
 require("./app/routes/venta.routes")(app);
 require('./app/routes/restaurant.routes')(app);
 require('./app/routes/mesa.routes')(app);
+require('./app/routes/cliente.routes')(app);
 
 app.listen(PORT, () => { //la aplicacion escucha en un puesto espcifico
     console.log('Servidor corriendo en puerto 9090.');

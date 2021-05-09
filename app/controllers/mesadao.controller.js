@@ -31,7 +31,7 @@ exports.findOne = async(req, res) =>{
             res.send(data);
         }else{
             res.status(404).send({
-                message: "No se encontro la mesa " + id
+                message:"No se encontro la mesa " + id
             });
         }
         
