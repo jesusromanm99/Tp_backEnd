@@ -77,7 +77,6 @@ exports.create=(req,res)=>{
 }
 
 exports.getReservasOcupadas=(req,res)=>{
-    req.par
     //filtro todas las reservas que tiene lugar esa hora
     Reserva.findAll({
         where: {
@@ -92,6 +91,58 @@ exports.getReservasOcupadas=(req,res)=>{
         res.send(data)
         })
        .catch( err=> {
+            res.status(500).send({
+                message: "Error en el servidor"
+            })
+        })
+}
+
+exports.getReservasByRestaurantes=(req,res)=>{
+    Reserva.findAll({
+        where: {
+            id_restaurante: req.params.id_res,
+        },
+        order:[["hora_final","ASC"],["id_mesa","ASC"]]
+    }).then( data => {
+        console.log(data)
+        res.status(200).send(data)
+    })
+        .catch( err=> {
+            res.status(500).send({
+                message: "Error en el servidor"
+            })
+        })
+}
+
+exports.getReservasByFecha=(req,res)=>{
+    Reserva.findAll({
+        where: {
+            fecha: req.params.fecha,
+        },
+        order:[["hora_final","ASC"],["id_mesa","ASC"]],
+    }).then( data => {
+        console.log(data)
+        res.status(200).send(data)
+    })
+        .catch( err=> {
+            res.status(500).send({
+                message: "Error en el servidor"
+            })
+        })
+}
+
+
+exports.getReservasByCliente=(req,res)=>{
+    Reserva.findAll({
+        where: {
+            id_cliente: req.params.cliente,
+        },
+        order:[["hora_final","ASC"],["id_mesa","ASC"]]
+    }).then( data => {
+        console.log(data)
+        res.status(200).send(data)
+    })
+        .catch( err=> {
             res.status(500).send({
                 message: "Error en el servidor"
             })
