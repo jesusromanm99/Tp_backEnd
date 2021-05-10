@@ -8,14 +8,16 @@ exports.create = async (req, res) => {
             message: "Debe enviar el nombre del restaurant"
         })
     }
-    const restaurant = req.body;
-    try {
-        const data = await Restaurant.create(restaurant);
-        res.send(data);
-    } catch (error) {
-        res.status(500).send({
-            message: error.message || "Ha ocurrido un error al crear un restaurant."
-        });
+    else{
+        const restaurant = req.body;
+        try {
+            const data = await Restaurant.create(restaurant);
+            res.send(data);
+        } catch (error) {
+            res.status(500).send({
+                message: error.message || "Ha ocurrido un error al crear un restaurant."
+            });
+        }
     }
 }
 exports.findOne = async(req, res) =>{
