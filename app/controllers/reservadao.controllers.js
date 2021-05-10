@@ -65,8 +65,9 @@ var validarCampos=(id_mesa, id_restaurante,id_cliente)=>{
 
 exports.create=(req,res)=>{
     //Verifico que se envie los parametros
-    message=validarCampos(req.params.id_mesa,req.params.id_restaurante,req.params.id_cliente)
-    if (message){
+    const message=validarCampos(req.body.id_mesa,req.body.id_restaurante,req.body.id_cliente)
+    console.log(message)
+    if (message!=""){
         res.status(404).send({
             message:message
         })
@@ -105,6 +106,7 @@ exports.getReservasOcupadas=(req,res)=>{
         attributes: ['id_mesa']
     }).then( data => {
         console.log(data)
+
         res.send(data)
         })
        .catch( err=> {

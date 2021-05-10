@@ -8,20 +8,22 @@ exports.create = async (req, res) => {
             message: "Debe enviar el nombre de la mesa"
         });
     }
-    if(!req.body.id_restaurante){
+    else if(!req.body.id_restaurante){
         res.status(400).send({
             message: "Debe enviar el id del restaurante"
         });
+    }else{
+        const mesa = req.body;
+        try {
+            const data = await Mesa.create(mesa);
+            res.send(data);
+        } catch (error) {
+            res.status(500).send({
+                message: error.message || "Ha ocurrido un error al crear una mesa."
+            });
+        }
     }
-    const mesa = req.body;
-    try {
-        const data = await Mesa.create(mesa);
-        res.send(data);
-    } catch (error) {
-        res.status(500).send({
-            message: error.message || "Ha ocurrido un error al crear una mesa."
-        });
-    }
+
 }
 exports.findOne = async(req, res) =>{
     const {id} = req.params;

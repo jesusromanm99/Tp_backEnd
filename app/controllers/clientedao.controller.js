@@ -71,7 +71,7 @@ exports.create= (req,res)=>{
                         });
                     });
             }else{
-                res.status(404).send(message)
+                res.status(400).send({message})
             }
         })
 };
