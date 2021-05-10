@@ -37,43 +37,60 @@ exports.findOne=(req,res) => {
             });
         });
 };
+var validarCampos=(id_mesa, id_restaurante,id_cliente)=>{
+    console.log(id_mesa,id_restaurante,id_cliente)
+    if (!id_mesa){
+        //res.status(404).send({
+            console.log(id_mesa)
+            return "Debe enviar el id de la mesa"
+        //})
+    }
+    else if (!id_restaurante){
+       // res.status(404).send({
+        console.log(id_restaurante)
+            return "Debe enviar el id del restaurante"
+        //})
+    }
+    else if (!id_cliente){
+        //res.status(404).send({
+        console.log(id_cliente)
+            return "Debe enviar el id del cliente"
+        //})
+    }
+    else {
+        console.log("Ningun lado")
+    }
+    return ""
+}
 
 exports.create=(req,res)=>{
-
     //Verifico que se envie los parametros
-    if (!req.body.id_mesa){
+    message=validarCampos(req.params.id_mesa,req.params.id_restaurante,req.params.id_cliente)
+    if (message){
         res.status(404).send({
-            message:"Debe enviar el id de la mesa"
+            message:message
         })
-    }
-    else if (!req.body.id_restaurante){
-        res.status(404).send({
-            message:"Debe enviar el id del restaurante"
-        })
-    }
-    else if (!req.body.id_cliente){
-        res.status(404).send({
-            message:"Debe enviar el id del cliente"
-        })
-    }
-
-    var reserva={
-        fecha:req.body.fecha,
-        hora_inicial:  req.body.hora_inicial,
-        hora_final: req.body.hora_final,
-        id_mesa:  req.body.id_mesa,
-        id_restaurante:  req.body.id_restaurante,
-        id_cliente: req.body.id_cliente,
-        cantidad_solicitada: req.body.cantidad_solicitada
-    }
-    Reserva.create(reserva)
-        .then(data=>{
-            res.status(200).send(data)
-        }).catch( err => {
+        console.log("Aca entro")
+    }else{
+        var reserva={
+            fecha:req.body.fecha,
+            hora_inicial:  req.body.hora_inicial,
+            hora_final: req.body.hora_final,
+            id_mesa:  req.body.id_mesa,
+            id_restaurante:  req.body.id_restaurante,
+            id_cliente: req.body.id_cliente,
+            cantidad_solicitada: req.body.cantidad_solicitada
+        }
+        Reserva.create(reserva)
+            .then(data=>{
+                res.status(200).send(data)
+            }).catch( err => {
             res.status(500).send({
                 message:"Ocurrio un error al crear el cliente"
             });
-    });
+        });
+    };
+
 }
 
 exports.getReservasOcupadas=(req,res)=>{
