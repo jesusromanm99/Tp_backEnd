@@ -38,7 +38,17 @@ exports.findOne = async(req, res) =>{
         });
     }
 }
-
+exports.findAll = async (req, res) =>{
+    Restaurant.findAll()
+        .then(data =>{
+            res.status(200).send(data);
+        })
+        .catch(err =>{
+            res.status(500).send({
+                message:"Error en el servidor"
+            });
+        });
+}
 exports.update = async(req, res) => {
     //Validar el request
     if(!req.body.nombre || !req.body.id){
