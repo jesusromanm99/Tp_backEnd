@@ -1,5 +1,8 @@
 const db_models = require('../models');
+const db=require("../models/index");
+const sequelize=db.sequelize;
 
+const { QueryTypes } = require('sequelize');
 const Reserva =db_models.Reserva;
 const MesaDao=db_models.Mesa;
 const Client= require("../controllers/clientedao.controller.js");
@@ -105,8 +108,7 @@ exports.getReservasOcupadas=(req,res)=>{
         },
         attributes: ['id_mesa']
     }).then( data => {
-        console.log(data)
-
+        console.log('valor retornado',data)
         res.send(data)
         })
        .catch( err=> {
@@ -115,7 +117,39 @@ exports.getReservasOcupadas=(req,res)=>{
             })
         })
 }
+exports.getReservasOcupadas2=(req,res)=>{
+    //filtro todas las reservas que tiene lugar esa hora
+    inicio=(parseInt(req.params.hora_i)+1).toString()
+    fecha=new Date(req.params.fecha)
+    sequelize.query(('SELECT id_mesa, fecha FROM reservas r WHERE ( :horaInicio between r.hora_inicial and r.hora_final-1  ' +
+        ' or r.hora_final between :horaInicio2  and :horaFin  or :horaFin between r.hora_inicial+1 and r.hora_final  )   ' +
+        ' and r.id_restaurante=:id_res'),
+        {replacements:{horaInicio:[(req.params.hora_i)],
+                       horaInicio2:[inicio],
+                        horaFin:[req.params.hora_f],
+                        id_res:[req.params.id_res],
+                        }
+        })
+        .then(data=>{
+            response=[]
+           // console.log(data[0])
+            data[0].forEach(elem=>{
+                console.log(elem.fecha)
+                console.log(fecha)
+                fecha2=elem.fecha.getFullYear()+"-"+(elem.fecha.getMonth()+1)+"-"+elem.fecha.getDate()
+                fecha3=fecha.getFullYear()+"-"+(fecha.getMonth()+1)+"-"+(fecha.getDate()+1)
+                console.log(fecha2,fecha3)
+                if(fecha2==fecha3){
+                    response.push(elem)
+                }
 
+            })
+            res.send(response)
+        }).catch(err=>{
+            console.log("error:",err)
+            res.status(500).send(err)
+    })
+}
 exports.getReservasByRestaurantes=(req,res)=>{
     Reserva.findAll({
         where: {
@@ -134,13 +168,14 @@ exports.getReservasByRestaurantes=(req,res)=>{
 }
 
 exports.getReservasByFecha=(req,res)=>{
+    console.log(req.params.fecha)
     Reserva.findAll({
         where: {
             fecha: req.params.fecha,
         },
         order:[["hora_final","ASC"],["id_mesa","ASC"]],
     }).then( data => {
-        console.log(data)
+       // console.log(data)
         res.status(200).send(data)
     })
         .catch( err=> {
