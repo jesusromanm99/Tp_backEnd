@@ -13,6 +13,22 @@ exports.findAll=(req,res) => {
             });
         });
 };
+exports.findByCedulaRest= async (req,res)=>{
+    try{
+        cliente= await Client.findOne({
+            where:{cedula:req.params.ci}
+        });
+        if(cliente)res.status(200).send(cliente)
+        else res.status(400).send(null)
+        console.log(cliente)
+
+
+    }catch (error){
+        res.status(400).send({
+            message:"Error el servidor"
+        })
+    }
+}
 
 findByCedula= async (cedula)=>{
 
@@ -53,6 +69,7 @@ exports.findOne=(req,res) => {
 //function that create a new Client
 exports.create= (req,res)=>{
     //check if cedula is already existed
+    console.log("data", req.body)
     findByCedula(req.body.cedula)
         .then(message=>{
             if(!message){
