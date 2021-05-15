@@ -6,6 +6,6 @@ module.exports = app =>{
     router.post('/', mesaDao.create);
     router.put('/', mesaDao.update);
     router.delete('/:id', mesaDao.delete);
-    
+    router.get("/restaurantes/:idRes", mesaDao.findAllByRestaurant);
     app.use('/api/mesa', router);
 }

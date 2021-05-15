@@ -38,6 +38,25 @@ exports.findAll=(req,res) => {
         });
 };
 
+exports.findAllByRestaurant=(req,res) => {
+    Mesa.findAll(
+        {
+            where: {
+                id_restaurante: req.params.idRes
+            },
+            order:[["planta","DESC"],["posicion_y","ASC"],["posicion_x","ASC"]]
+        }
+    )
+        .then(data =>{
+            res.status(200).send(data);
+        })
+        .catch(err =>{
+            res.status(500).send({
+                message:"Error en el servidor"
+            });
+        });
+};
+
 exports.findOne = async(req, res) =>{
     const {id} = req.params;
     try {

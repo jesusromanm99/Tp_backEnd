@@ -1,6 +1,18 @@
 const db = require('../models');
 const Restaurant = db.Restaurant;
 
+
+exports.findAll=(req,res) => {
+    Restaurant.findAll()
+        .then(data =>{
+            res.status(200).send(data);
+        })
+        .catch(err =>{
+            res.status(500).send({
+                message:"Error en el servidor"
+            });
+        });
+};
 exports.create = async (req, res) => {
     //Validar el request
     if(!req.body.nombre){
