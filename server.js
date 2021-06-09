@@ -34,6 +34,7 @@ require('./app/routes/cliente.routes')(app);
 require('./app/routes/reserva.routes')(app);
 require('./app/routes/categoria.routes')(app);
 require('./app/routes/producto.routes')(app);
+require('./app/routes/consumo.routes')(app);
 
 
 app.listen(PORT, () => { //la aplicacion escucha en un puesto espcifico
